@@ -125,6 +125,7 @@ while true; do
 	elif [[ "$MAIN_STATUS" == PROBLEM* && "$SPARE_STATUS" == OK* ]]; then
 		log "$MAIN_STATUS on $MAIN"
 		log "FAILOVER: switching to $SPARE"
+		local route=$(ip route flush cache)
 		set_metric $MAIN $((METRIC_SPARE+1))
 		set_metric $SPARE $METRIC_MAIN
 		set_metric $MAIN $METRIC_SPARE
